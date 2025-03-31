@@ -42,21 +42,27 @@ const getProductsByCollection = async (req, res) => {
 };
 
 const getProductsBySearch = async (req, res) => {
-    try {
-        const searchTerm = req.params.search;
-        const products = await Product.find({
-            $text: {
-                $search: searchTerm
-            }
-        })
-        if(!products.length) {
-            res.status(404).send({ message: 'Product not found' });
-        }
-        res.status(200).send(products);
-    } catch (error) {
-        res.status(500).send({ message: 'Server Error', error: error.message });
+  try {
+    const searchTerm = req.params.search; 
+    const products = await Product.find({
+      $or: [
+        { name: { $regex: searchTerm, $options: "i" } },
+        { description: { $regex: searchTerm, $options: "i" } },
+      ],
+    });
+
+    if (!products.length) {
+      return res.status(404).send({ message: "No products found" });
     }
-}
+
+    return res.status(200).send(products);
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ message: "Server Error", error: error.message });
+  }
+};
+
 
 export { 
     getProducts,
