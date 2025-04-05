@@ -9,7 +9,7 @@ import {
 const productRouter = express.Router();
 
 productRouter.route('/')
-  .get(getProducts)
+  .get(getProducts);
 
 productRouter.route('/category/:category')
   .get(getProductByCategory);

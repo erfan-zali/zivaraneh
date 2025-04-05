@@ -7,12 +7,6 @@ const userSchema = new mongoose.Schema({
   emaiVerified: { type: Boolean, default: false },
   role: { type: String, enum: ["customer", "admin"], default: "customer" },
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
-  cart: [
-    {
-        productId: { type: mongoose.Schema.Types.ObjectId },
-        quantity: { type: Number, required: true, min: 1 },
-    }
-  ],
   orders: [
     {
       productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
