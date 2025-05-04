@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 
 const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true, trim: true  },
@@ -12,8 +12,8 @@ const userSchema = new mongoose.Schema({
   orders: [
     {
       productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
-      quantity: { type: Number, required: true },
-      total: { type: Number, required: true },
+      quantity: { type: Number },
+      total: { type: Number },
       purchasedAt: { type: Date, default: Date.now }
     }
   ],

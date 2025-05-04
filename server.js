@@ -6,6 +6,7 @@ import productRouter from './src/routers/productRouter.js';
 import userRouter from "./src/routers/userRouter.js";
 import cookieParser from "cookie-parser";
 import session from "express-session";
+import cartRouter from './src/routers/cartRouter.js'
 
 
 dotenv.config();
@@ -33,5 +34,6 @@ app.use(session({
 app.use("/images", express.static('public/images'));
 app.use('/api/products', productRouter);
 app.use('/api/auth', userRouter);
+app.use('/api/cart', cartRouter);
 
 app.listen(port)

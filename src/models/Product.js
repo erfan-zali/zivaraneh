@@ -9,7 +9,6 @@ const productSchema = new mongoose.Schema(
     category: { type: String, required: true, trim: true },
     stock: { type: Number, min: 0 },
     images: { type: [String], default: [] },
-    col: { type: String, trim: true },
   },
   { timestamps: true }
 );
