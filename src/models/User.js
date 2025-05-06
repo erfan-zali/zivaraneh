@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true, trim: true  },
@@ -6,9 +6,8 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true, trim: true },
   email: { type: String, required: true, unique: true, trim: true },
   password: { type: String, required: true, trim: true },
-  emaiVerified: { type: Boolean, default: false },
+  emailVerified: { type: Boolean, default: false },
   role: { type: String, enum: ["customer", "admin"], default: "customer" },
-  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
   orders: [
     {
       productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },

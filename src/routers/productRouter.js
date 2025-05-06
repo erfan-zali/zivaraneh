@@ -10,13 +10,10 @@ const productRouter = express.Router();
 
 productRouter.route('/')
   .get(getProducts);
-
 productRouter.route('/category/:category')
   .get(getProductByCategory);
-
 productRouter.route('/collection/:collection')
   .get(getProductsByCollection);
-
 productRouter.route('/search/:search')
   .get(getProductsBySearch);
 

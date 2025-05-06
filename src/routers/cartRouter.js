@@ -8,10 +8,9 @@ import {
 
 const cartRouter = express.Router();
 
-cartRouter.put("/decrease", decreaseFromCart);      // Body: userId, productId
-cartRouter.post("/", addToCart);                    // Body: userId, productId
-cartRouter.delete("/", clearCart);                  // Body: userId
-cartRouter.get("/:userId", getCart);                // Only reading, so param is okay
-
+cartRouter.put("/decrease", decreaseFromCart);     
+cartRouter.post("/", addToCart);                    
+cartRouter.delete("/", clearCart);                 
+cartRouter.get("/:userId", getCart);           
 
 export default cartRouter;
