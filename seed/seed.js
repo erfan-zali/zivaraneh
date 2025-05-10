@@ -1,29 +1,36 @@
-import mongoose from "mongoose";
-import Product from "../src/models/Product.js";
-import products from "./data/products.js";
-import dotenv from "dotenv";
+import mongoose from 'mongoose';
+import Product from '../src/models/Product.js';
+import products from './data/products.js';
+import dotenv from 'dotenv';
 
-// Manually set the path to the root directory `.env` file
-dotenv.config({ path: "../.env" });
+// Config paths explicitly for Docker
+dotenv.config({ path: '/app/.env' }); 
 
 const seedDatabase = async () => {
   try {
-    await mongoose.connect(process.env.DATABASE_URI);
-    console.log("🔗 Database Connected Successfully!");
+    console.log("🔄 Attempting to connect to MongoDB...");
+    
+    await mongoose.connect(process.env.DATABASE_URI || 'mongodb://mongodb:27017/zivaraneh', {
+      serverSelectionTimeoutMS: 5000
+    });
+    console.log("✅ MongoDB Connected!");
 
-    // ❌ Clear the Product collection
+    // Clear existing data
     await Product.deleteMany();
-    console.log("🗑️  Cleared existing products!");
+    console.log("🧹 Cleared existing products");
 
-    // ✅ Insert new products
+    // Insert new data
     await Product.insertMany(products);
-    console.log("✅ Database seeded successfully!");
+    console.log(`🌱 Seeded ${products.length} products successfully!`);
 
-    mongoose.connection.close();
   } catch (error) {
-    console.error("❌ Error seeding database:", error);
-    process.exit(1); // Exit with failure
+    console.error('❌ SEEDING FAILED:', error);
+    process.exit(1);
+  } finally {
+    await mongoose.disconnect();
+    console.log("🔌 MongoDB connection closed");
   }
 };
 
+// Execute
 seedDatabase();

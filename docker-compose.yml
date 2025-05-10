@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:4.4
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
