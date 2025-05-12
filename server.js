@@ -24,10 +24,13 @@ app.use(
     origin: [
       "http://193.36.84.225",
       "http://localhost",
+      "http://zivaraaneh.ir",
+      "https://zivaraaneh.ir", // in case of enabling HTTPS later
     ],
     credentials: true,
   })
 );
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(
