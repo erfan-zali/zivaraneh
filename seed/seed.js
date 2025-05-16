@@ -3,16 +3,12 @@ import Product from '../src/models/Product.js';
 import products from './data/products.js';
 import dotenv from 'dotenv';
 
-// Config paths explicitly for Docker
-dotenv.config({ path: '/app/.env' }); 
-
+dotenv.config({ path: '../.env' }); 
 const seedDatabase = async () => {
   try {
     console.log("🔄 Attempting to connect to MongoDB...");
     
-    await mongoose.connect(process.env.DATABASE_URI || 'mongodb://mongodb:27017/zivaraneh', {
-      serverSelectionTimeoutMS: 5000
-    });
+    await mongoose.connect(process.env.DATABASE_URI || 'mongodb://127.0.0.1:27017/zivaraneh');
     console.log("✅ MongoDB Connected!");
 
     // Clear existing data
